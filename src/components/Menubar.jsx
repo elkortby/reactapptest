@@ -10,6 +10,7 @@ export default function Menubar() {
 		logout()
 		history.push("/")
 	}
+
 	return (
 		<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 			<Container>
