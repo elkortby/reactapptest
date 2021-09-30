@@ -1,18 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Form, Button, Container } from 'react-bootstrap'
+import { useHistory } from 'react-router'
+import { AuthContext } from '../auth/AuthProvider'
 
 export default function Auth() {
 
 	const [email, setEmail] = useState("")
 	const [password, setPassword] = useState("")
+	const {login} = useContext(AuthContext)
+	const history = useHistory()
 
 	const handleSubmit = (e) => {
 		e.preventDefault()
-		const body = {
-			email: email,
-			password: password
-		}
-		console.log(body)
+		login(email, password)
+		history.push("/")
 	}
 
 	return (
@@ -21,6 +22,7 @@ export default function Auth() {
 				<Form.Group className="mb-3" controlId="email">
 					<Form.Label>Email address</Form.Label>
 					<Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} />
+
 					<Form.Text className="text-muted">
 						We'll never share your email with anyone else.
 					</Form.Text>
@@ -30,9 +32,6 @@ export default function Auth() {
 					<Form.Label>Password</Form.Label>
 					<Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} />
 				</Form.Group>
-				{/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-					<Form.Check type="checkbox" label="Check me out" />
-				</Form.Group> */}
 				<Button variant="primary" type="submit">
 					Submit
 				</Button>
